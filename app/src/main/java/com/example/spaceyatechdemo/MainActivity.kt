@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.spaceyatechdemo.ui.theme.SpaceYaTechDemoTheme
@@ -28,24 +29,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SpaceYaTechDemoTheme {
-                // A surface container using the 'background' color from the theme
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.upcoming),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Spacer(modifier = Modifier.height(25.dp))
-                    Row {
-                        MyCard(name = stringResource(id = R.string.dates_dinner))
-                        Spacer(modifier = Modifier.width(16.dp))
-                        MyCard(name = stringResource(id = R.string.beach_sand))
-                    }
-                }
+                DisplayContent()
             }
+        }
+    }
+}
+
+@Composable
+fun DisplayContent() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = stringResource(id = R.string.upcoming),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Spacer(modifier = Modifier.height(25.dp))
+        Row {
+            MyCard(name = stringResource(id = R.string.dates_dinner))
+            Spacer(modifier = Modifier.width(16.dp))
+            MyCard(name = stringResource(id = R.string.beach_sand))
         }
     }
 }
@@ -57,7 +62,8 @@ fun MyCard(
     Card(
         colors = CardDefaults.cardColors(Color.Black),
         modifier = Modifier
-            .size(width = 100.dp, height = 100.dp),
+            .size(width = 100.dp, height = 100.dp)
+            .testTag("my_card"),
 
     ) {
         Text(
